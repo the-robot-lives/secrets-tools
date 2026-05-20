@@ -17,20 +17,32 @@ make install    # Installs hydrate-envrc, infisical-populate-secrets to ~/.local
 
 ## Configuration
 
-### Required (in config.env)
+All configuration lives in `k8-util-config.yaml` with credentials in `.k8-secrets.yaml` (see [k8-lib README](../k8-lib/README.md) for setup).
 
-```bash
-K8_INFISICAL_HOST="https://infisical.noizu.com/api"
-K8_INFISICAL_CLIENT_ID="..."
-K8_INFISICAL_CLIENT_SECRET="..."
+### Relevant Sections
+
+In `k8-util-config.yaml`:
+
+```yaml
+infisical:
+  host: "https://infisical.noizu.com/api"
+  project_id: "..."
+```
+
+In `.k8-secrets.yaml` (gitignored):
+
+```yaml
+infisical:
+  client_id: "..."
+  client_secret: "..."
 ```
 
 Or set equivalent environment variables:
 
 ```bash
-export OPERATOR_CLIENT_ID="..."
-export OPERATOR_CLIENT_SECRET="..."
-export INFISICAL_HOST="https://infisical.noizu.com/api"
+export K8_INFISICAL_HOST="https://infisical.noizu.com/api"
+export K8_INFISICAL_CLIENT_ID="..."
+export K8_INFISICAL_CLIENT_SECRET="..."
 ```
 
 ## Tools
