@@ -5,7 +5,7 @@ Environment file generation and Infisical secret seeding.
 ## Installation
 
 ```bash
-make install    # Installs hydrate-envrc, infisical-populate-secrets to ~/.local/bin
+make install    # Installs hydrate-envrc, infisical-populate-secrets, infisical-bootstrap to ~/.local/bin
 ```
 
 ## Prerequisites
@@ -79,3 +79,42 @@ infisical-populate-secrets --show-secrets   # Display values in output
 ```
 
 Auto-generates missing secrets and persists them to `secrets/.envrc.auto` for reuse across runs. Precedence: explicit env var > `.envrc.auto` > auto-generate.
+
+### infisical-bootstrap
+
+Pre-creates the K8s Secrets that Infisical needs before it can manage its own secrets (tier 0 chicken-and-egg). Reads connection details from `k8-util-config.yaml` → `infisical_bootstrap` section.
+
+```bash
+infisical-bootstrap                             # Create app + TLS secrets
+infisical-bootstrap --dry-run                   # Preview without creating
+infisical-bootstrap --tls-only                  # Only create TLS secret
+infisical-bootstrap --namespace my-ns           # Override namespace
+```
+
+#### Configuration
+
+In `k8-util-config.yaml`:
+
+```yaml
+infisical_bootstrap:
+  namespace: infisical
+  secret_name: infisical-core-secrets
+  tls_secret_name: cloudflare-infisical.example.com-tls
+  site_url: https://infisical.example.com
+  pg_user: infisical
+  pg_db: infisicalDB
+  db_host: postgresql
+  redis_host: redis
+```
+
+All values overridable via `K8_INFISICAL_BOOTSTRAP_*` env vars (e.g., `K8_INFISICAL_BOOTSTRAP_SITE_URL`).
+
+#### Required Environment Variables
+
+| Variable | Purpose |
+|----------|---------|
+| `INFISICAL_POSTGRES_PASSWORD` | PostgreSQL password |
+| `INFISICAL_ENCRYPTION_KEY` | Encryption key (hex) |
+| `INFISICAL_AUTH_SECRET` | Auth secret |
+| `INFISICAL_REDIS_PASSWORD` | Redis password |
+| `TLS_CRT` / `TLS_KEY` | Base64-encoded TLS certificate and key (optional) |
