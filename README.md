@@ -17,11 +17,11 @@ make install    # Installs hydrate-envrc, infisical-populate-secrets, infisical-
 
 ## Configuration
 
-All configuration lives in `k8-util-config.yaml` with credentials in `.k8-secrets.yaml` (see [k8-lib README](../k8-lib/README.md) for setup).
+All configuration lives in `infra-config.yaml` with credentials in `.envrc.k8.dc` (see [k8-lib README](../k8-lib/README.md) for setup).
 
 ### Relevant Sections
 
-In `k8-util-config.yaml`:
+In `infra-config.yaml`:
 
 ```yaml
 infisical:
@@ -29,12 +29,12 @@ infisical:
   project_id: "..."
 ```
 
-In `.k8-secrets.yaml` (gitignored):
+In `.envrc.k8.dc` secrets layer:
 
-```yaml
-infisical:
-  client_id: "..."
-  client_secret: "..."
+```bash
+# In .envrc.k8.dc
+export K8_INFISICAL_CLIENT_ID="..."
+export K8_INFISICAL_CLIENT_SECRET="..."
 ```
 
 Or set equivalent environment variables:
@@ -82,7 +82,7 @@ Auto-generates missing secrets and persists them to `secrets/.envrc.auto` for re
 
 ### infisical-bootstrap
 
-Pre-creates the K8s Secrets that Infisical needs before it can manage its own secrets (tier 0 chicken-and-egg). Reads connection details from `k8-util-config.yaml` → `infisical_bootstrap` section.
+Pre-creates the K8s Secrets that Infisical needs before it can manage its own secrets (tier 0 chicken-and-egg). Reads connection details from `infra-config.yaml` → `infisical_bootstrap` section.
 
 ```bash
 infisical-bootstrap                             # Create app + TLS secrets
@@ -93,7 +93,7 @@ infisical-bootstrap --namespace my-ns           # Override namespace
 
 #### Configuration
 
-In `k8-util-config.yaml`:
+In `infra-config.yaml`:
 
 ```yaml
 infisical_bootstrap:
