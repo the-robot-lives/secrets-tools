@@ -51,6 +51,8 @@ done
 unset _k8_arg _k8_prev
 
 source "$K8_LIB_DIR/bin/common.sh"
+source "$K8_LIB_DIR/bin/assist.sh"
+_k8_check_assist "$0" "$@"
 
 # --- Load config values with env var overrides --------------------------------
 NS="${K8_INFISICAL_BOOTSTRAP_NAMESPACE:-$(_cfg_default '.infisical_bootstrap.namespace' 'infisical')}"
