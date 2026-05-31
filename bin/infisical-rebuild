@@ -56,6 +56,9 @@ CONFIG_ARG=""
 for arg in "$@"; do
   case "$arg" in
     --phase=*)       PHASE="${arg#--phase=}" ;;
+    --stage)         ENV_ARG="stage" ;;
+    --prod)          ENV_ARG="prod" ;;
+    --dev)           ENV_ARG="dev" ;;
     --env=*)         ENV_ARG="${arg#--env=}" ;;
     --show-secrets)  SHOW_SECRETS=true ;;
     --dry-run)       DRY_RUN=true ;;
@@ -66,6 +69,9 @@ for arg in "$@"; do
 Usage: infisical-rebuild --env=<prod|staging> [OPTIONS]
 
   --env=ENV          Target environment (default: prod)
+  --stage            Shorthand for --env=stage
+  --prod             Shorthand for --env=prod
+  --dev              Shorthand for --env=dev
   --phase=PHASE      scan | analyze | generate | all (default: all)
   --show-secrets     Include actual secret values in inventory
   --output-dir=DIR   Output directory (default: .rebuild/)
