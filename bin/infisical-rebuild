@@ -3,7 +3,7 @@
 # infisical-rebuild — Regenerate .envrc.dc from published Infisical data
 #
 # Reads all secrets from live Infisical, identifies duplicates, and generates
-# a fresh .envrc.dc and infisical-secrets.yaml with consolidated references.
+# a fresh .envrc.dc and .infisical-secrets.yaml with consolidated references.
 #
 # Usage:
 #   infisical-rebuild --env=prod                          # full rebuild
@@ -18,7 +18,7 @@
 #   --show-secrets     Include actual values in inventory (not just hashes)
 #   --output-dir=DIR   Output directory (default: .rebuild/)
 #   --dry-run          Generate phase: preview only
-#   --config=FILE      Path to infisical-secrets.yaml
+#   --config=FILE      Path to .infisical-secrets.yaml
 #
 # Dependencies: yq (v4+), jq, curl, openssl, bash 4+
 # =============================================================================
@@ -70,7 +70,7 @@ Usage: infisical-rebuild --env=<prod|staging> [OPTIONS]
   --show-secrets     Include actual secret values in inventory
   --output-dir=DIR   Output directory (default: .rebuild/)
   --dry-run          Preview generate phase without writing
-  --config=FILE      Path to infisical-secrets.yaml
+  --config=FILE      Path to .infisical-secrets.yaml
 USAGE
       exit 0 ;;
   esac
@@ -86,11 +86,12 @@ CONFIG=""
 for candidate in \
   "$CONFIG_ARG" \
   "${INFISICAL_SECRETS_FILE:-}" \
+  "$INFRA_ROOT/.infisical-secrets.yaml" \
   "$INFRA_ROOT/infisical-secrets.yaml" \
   "$INFRA_ROOT/secrets.yaml"; do
   [[ -n "$candidate" && -f "$candidate" ]] && CONFIG="$candidate" && break
 done
-[[ -z "$CONFIG" ]] && die "No infisical-secrets.yaml found."
+[[ -z "$CONFIG" ]] && die "No .infisical-secrets.yaml found."
 
 yq -e '.apiVersion == "secrets-tools/v1"' "$CONFIG" &>/dev/null \
   || die "Only secrets-tools/v1 configs are supported."
@@ -204,7 +205,7 @@ do_scan() {
     done
   done
 
-  # Extract dc mappings from infisical-secrets.yaml
+  # Extract dc mappings from .infisical-secrets.yaml
   step "Extracting dc reference mappings from config ..."
   local dc_map
   dc_map=$(yq -o=json '
@@ -619,7 +620,7 @@ do_generate() {
   echo ""
   echo "Next steps:"
   echo "  1. Review: diff .envrc.dc $OUTPUT_DIR/.envrc.new.dc"
-  echo "  2. Review: diff infisical-secrets.yaml $OUTPUT_DIR/infisical-secrets.new.yaml"
+  echo "  2. Review: diff .infisical-secrets.yaml $OUTPUT_DIR/infisical-secrets.new.yaml"
   echo "  3. Or use: /rebuild-review (Claude interactive review)"
   echo "  4. Apply:  cp $OUTPUT_DIR/.envrc.new.dc .envrc.dc"
   echo "  5. Verify: infisical-populate-secrets --dry-run --env=prod"
