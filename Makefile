@@ -1,8 +1,9 @@
 INSTALL_DIR ?= $(HOME)/.local/bin
+LIB_DIR     ?= $(HOME)/.local/lib
 RUST_DIR     = rust
 RUST_BIN     = $(RUST_DIR)/target/release/infisical
 
-.PHONY: all compile test install install-legacy install-rust clean
+.PHONY: all compile test install install-legacy install-rust install-lib clean
 
 all: install
 
@@ -37,8 +38,14 @@ install: compile
 
 install-rust: install
 
+# Install shared library (required by legacy shell scripts)
+install-lib:
+	@mkdir -p $(LIB_DIR)
+	@install -m 644 lib/secret-engine.sh $(LIB_DIR)/secret-engine.sh
+	@echo "✓ Installed secret-engine.sh → $(LIB_DIR)/secret-engine.sh"
+
 # Install legacy shell scripts
-install-legacy:
+install-legacy: install-lib
 	@mkdir -p $(INSTALL_DIR)
 	@for f in hydrate-envrc infisical-populate-secrets infisical-bootstrap infisical-fetch-secrets infisical-rebuild export-infisical-secrets infisical-view-dc infisical-find-dc-line infisical-verify infisical-set-secret infisical-audit; do \
 		install -m 755 "bin/$$f" "$(INSTALL_DIR)/$$f"; \

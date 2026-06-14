@@ -80,17 +80,18 @@ lines_json=$(envrc_parse_get_lines "$ENVRC_FILE")
 
 # -- Apply filters -----------------------------------------------------------
 if [[ -n "$SCOPE_FILTER" ]] || [[ -n "$PATH_FILTER" ]]; then
-  local filter='.[] | '
+  filter='[.[] | '
   if [[ -n "$SCOPE_FILTER" ]]; then
     filter+="select(.scope == \"$SCOPE_FILTER\")"
   else
     filter+="select(true)"
   fi
   if [[ -n "$PATH_FILTER" ]]; then
-    $SCOPE_FILTER && filter+=" | "
+    [[ -n "$SCOPE_FILTER" ]] && filter+=" | "
     filter+="select(.item_path | contains(\"$PATH_FILTER\"))"
   fi
-  lines_json=$(echo "$lines_json" | jq -r "$filter")
+  filter+=']'
+  lines_json=$(echo "$lines_json" | jq "$filter")
 fi
 
 # -- Get line count ----------------------------------------------------------
