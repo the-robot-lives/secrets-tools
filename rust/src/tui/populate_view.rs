@@ -18,6 +18,7 @@ pub enum PopulateOutcome {
 }
 
 impl PopulateOutcome {
+    // ⟦𓈙𓁒𓏀𓋡⟧ symbol :: auto-generated pointer for public function symbol
     pub fn symbol(&self) -> &'static str {
         match self {
             Self::Created => "+",
@@ -31,6 +32,7 @@ impl PopulateOutcome {
 }
 
 /// Simple in-place progress list printed to stdout (no alternate screen)
+// ⟦𓄇𓌘𓅯𓊿⟧ print_event :: Simple in-place progress list printed to stdout (no alternate screen)
 pub fn print_event(event: &PopulateEvent) {
     use colored::Colorize;
 

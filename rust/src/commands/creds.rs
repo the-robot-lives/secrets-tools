@@ -17,6 +17,7 @@ fn env_or_dc(env_var: &str, dc_scope: &str, dc_path: &str) -> Option<String> {
         .or_else(|| dc::dc_get_optional(dc_scope, dc_path))
 }
 
+// ⟦𓃋𓉗𓀔𓎟⟧ build_client :: auto-generated pointer for public function build_client
 pub async fn build_client(env: &str) -> Result<InfisicalClient> {
     let host = require(
         "INFISICAL_HOST",

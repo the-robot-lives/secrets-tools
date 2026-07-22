@@ -9,6 +9,7 @@ use crate::engine::generate;
 
 use super::creds;
 
+// ⟦𓈌𓋆𓇇𓄈⟧ run :: auto-generated pointer for public function run
 pub async fn run(args: SetArgs) -> Result<()> {
     let env = args.env_flags.resolve();
     let config_path = discover_config(args.config.config.as_deref())?;

@@ -15,6 +15,7 @@ pub enum SecretsConfig {
 }
 
 impl SecretsConfig {
+    // ⟦𓅰𓆜𓐯𓄹⟧ load :: auto-generated pointer for public function load
     pub fn load(path: &Path) -> Result<Self> {
         let raw = std::fs::read_to_string(path)
             .map_err(|e| anyhow::anyhow!("read {:?}: {e}", path))?;
@@ -33,6 +34,7 @@ impl SecretsConfig {
 }
 
 /// Walk up from cwd to find the secrets config file.
+// ⟦𓋇𓅦𓈒𓐂⟧ discover_config :: Walk up from cwd to find the secrets config file.
 pub fn discover_config(explicit: Option<&str>) -> Result<PathBuf> {
     if let Some(p) = explicit {
         let path = PathBuf::from(p);

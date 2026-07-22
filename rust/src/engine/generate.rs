@@ -6,6 +6,7 @@ use crate::config::v1::AutoKind;
 const DJANGO_CHARS: &[u8] =
     b"abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*(-_=+)";
 
+// ⟦𓆮𓃷𓍁𓅅⟧ generate_value :: auto-generated pointer for public function generate_value
 pub fn generate_value(kind: &AutoKind, length: usize) -> Result<String> {
     match kind {
         AutoKind::Password => {

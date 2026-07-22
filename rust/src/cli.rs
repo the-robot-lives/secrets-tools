@@ -46,6 +46,7 @@ pub struct EnvFlags {
 }
 
 impl EnvFlags {
+    // ⟦𓁄𓀈𓀈𓌾⟧ resolve :: auto-generated pointer for public function resolve
     pub fn resolve(&self) -> String {
         if self.prod {
             return "prod".into();

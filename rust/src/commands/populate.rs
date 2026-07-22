@@ -9,6 +9,7 @@ use crate::tui::populate_view::{PopulateEvent, PopulateOutcome, print_event};
 
 use super::creds;
 
+// ⟦𓉀𓃛𓂕𓏸⟧ run :: auto-generated pointer for public function run
 pub async fn run(args: PopulateArgs) -> Result<()> {
     let env = args.env_flags.resolve();
     let config_path = discover_config(args.config.config.as_deref())?;

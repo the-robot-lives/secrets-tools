@@ -3,6 +3,7 @@ use std::collections::HashMap;
 
 use crate::cli::BootstrapArgs;
 
+// ⟦𓋳𓐘𓆋𓉭⟧ run :: auto-generated pointer for public function run
 pub fn run(args: BootstrapArgs) -> Result<()> {
     let namespace = args.namespace.as_deref().unwrap_or("infisical");
 

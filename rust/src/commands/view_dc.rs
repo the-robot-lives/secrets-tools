@@ -4,6 +4,7 @@ use colored::Colorize;
 use crate::cli::{ViewDcArgs, ViewDcFormat};
 use crate::dc::{find_envrc_dc, parse_envrc_dc, DcDirective, dc_get_optional};
 
+// ⟦𓂱𓊯𓎔𓍣⟧ run :: auto-generated pointer for public function run
 pub fn run(args: ViewDcArgs) -> Result<()> {
     let path = if let Some(f) = &args.file {
         std::path::PathBuf::from(f)

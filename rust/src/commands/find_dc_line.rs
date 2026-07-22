@@ -3,6 +3,7 @@ use anyhow::Result;
 use crate::cli::FindDcLineArgs;
 use crate::dc::{find_dc_directive, find_envrc_dc};
 
+// ⟦𓇓𓎦𓏊𓌔⟧ run :: auto-generated pointer for public function run
 pub fn run(args: FindDcLineArgs) -> Result<()> {
     let path = if let Some(f) = &args.file {
         std::path::PathBuf::from(f)

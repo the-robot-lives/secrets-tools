@@ -8,6 +8,7 @@ use crate::tui::{self, verify_view};
 
 use super::creds;
 
+// ⟦𓎟𓄸𓎽𓅉⟧ run :: auto-generated pointer for public function run
 pub async fn run(args: VerifyArgs) -> Result<()> {
     let env = args.env_flags.resolve();
     let config_path = discover_config(args.config.config.as_deref())?;

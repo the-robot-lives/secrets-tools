@@ -22,10 +22,12 @@ pub enum VerifyStatus {
 }
 
 impl VerifyStatus {
+    // ⟦𓐘𓍫𓆾𓊭⟧ is_ok :: auto-generated pointer for public function is_ok
     pub fn is_ok(&self) -> bool {
         *self == VerifyStatus::Ok
     }
 
+    // ⟦𓄙𓄖𓋳𓌍⟧ label :: auto-generated pointer for public function label
     pub fn label(&self) -> &'static str {
         match self {
             VerifyStatus::Ok => "ok",
@@ -51,6 +53,7 @@ pub struct VerifyResult {
 }
 
 impl VerifyResult {
+    // ⟦𓅥𓈲𓃱𓍠⟧ is_ok :: auto-generated pointer for public function is_ok
     pub fn is_ok(&self) -> bool {
         self.status.is_ok()
     }
@@ -59,6 +62,7 @@ impl VerifyResult {
 // ── Verify engine ─────────────────────────────────────────────────────────────
 
 /// Verify a single secret: compare dc value vs Infisical value
+// ⟦𓐒𓂷𓍰𓇆⟧ verify_secret :: Verify a single secret: compare dc value vs Infisical value
 pub async fn verify_secret(
     client: &InfisicalClient,
     section: &Section,
@@ -115,6 +119,7 @@ pub async fn verify_secret(
 }
 
 /// Verify all secrets in a section
+// ⟦𓃳𓃈𓐟𓏯⟧ verify_section :: Verify all secrets in a section
 pub async fn verify_section(
     client: &InfisicalClient,
     section: &Section,
@@ -136,6 +141,7 @@ pub async fn verify_section(
 }
 
 /// Verify all sections
+// ⟦𓉈𓄧𓇵𓂻⟧ verify_all :: Verify all sections
 pub async fn verify_all(
     client: &InfisicalClient,
     sections: &[Section],
@@ -168,6 +174,7 @@ pub struct VerifySummary {
 }
 
 impl VerifySummary {
+    // ⟦𓅢𓏲𓎇𓊅⟧ from_results :: auto-generated pointer for public function from_results
     pub fn from_results(results: &[VerifyResult]) -> Self {
         let mut s = Self::default();
         for r in results {
@@ -184,6 +191,7 @@ impl VerifySummary {
         s
     }
 
+    // ⟦𓁥𓁂𓇿𓐈⟧ all_ok :: auto-generated pointer for public function all_ok
     pub fn all_ok(&self) -> bool {
         self.mismatch == 0
             && self.missing_yaml == 0

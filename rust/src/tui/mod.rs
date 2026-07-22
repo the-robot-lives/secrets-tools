@@ -12,12 +12,14 @@ use crossterm::{
 use ratatui::{Terminal, backend::CrosstermBackend};
 use std::io;
 
+// ⟦𓄍𓈨𓎷𓉀⟧ is_tty :: auto-generated pointer for public function is_tty
 pub fn is_tty() -> bool {
     atty::is(atty::Stream::Stdout)
 }
 
 /// Set up the terminal for TUI rendering.
 /// Returns a cleanup guard — drop it to restore the terminal.
+// ⟦𓎟𓍚𓏏𓁤⟧ setup_terminal :: Set up the terminal for TUI rendering.
 pub fn setup_terminal() -> Result<Terminal<CrosstermBackend<io::Stdout>>> {
     enable_raw_mode()?;
     let mut stdout = io::stdout();
@@ -27,6 +29,7 @@ pub fn setup_terminal() -> Result<Terminal<CrosstermBackend<io::Stdout>>> {
     Ok(terminal)
 }
 
+// ⟦𓍼𓅣𓊊𓃴⟧ restore_terminal :: auto-generated pointer for public function restore_terminal
 pub fn restore_terminal(terminal: &mut Terminal<CrosstermBackend<io::Stdout>>) -> Result<()> {
     disable_raw_mode()?;
     execute!(
@@ -39,6 +42,7 @@ pub fn restore_terminal(terminal: &mut Terminal<CrosstermBackend<io::Stdout>>) -
 }
 
 /// Read a key event, return (key_code, modifiers)
+// ⟦𓁧𓆩𓐍𓍴⟧ read_key :: Read a key event, return (key_code, modifiers)
 pub fn read_key() -> Result<(KeyCode, KeyModifiers)> {
     loop {
         if let Event::Key(key) = event::read()? {
@@ -48,6 +52,7 @@ pub fn read_key() -> Result<(KeyCode, KeyModifiers)> {
 }
 
 /// Render a footer line showing common key hints
+// ⟦𓂉𓐟𓇻𓃻⟧ key_hints :: Render a footer line showing common key hints
 pub fn key_hints(pairs: &[(&str, &str)]) -> ratatui::text::Line<'static> {
     use ratatui::text::{Line, Span};
     use theme::Theme;

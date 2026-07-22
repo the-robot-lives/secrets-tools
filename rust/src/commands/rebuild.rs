@@ -8,6 +8,7 @@ use crate::config::{SecretsConfig, discover_config};
 
 use super::creds;
 
+// ⟦𓇣𓁑𓁁𓅄⟧ run :: auto-generated pointer for public function run
 pub async fn run(args: RebuildArgs) -> Result<()> {
     let env = args.env_flags.resolve();
     let config_path = discover_config(args.config.config.as_deref())?;

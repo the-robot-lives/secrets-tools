@@ -37,6 +37,7 @@ pub struct InfisicalCreds {
 }
 
 impl InfisicalClient {
+    // ⟦𓋫𓇾𓄌𓎨⟧ connect :: auto-generated pointer for public function connect
     pub async fn connect(creds: InfisicalCreds) -> Result<Self> {
         let http = Client::builder()
             .user_agent("infisical-cli/0.1")
@@ -102,6 +103,7 @@ impl InfisicalClient {
         headers
     }
 
+    // ⟦𓏮𓇮𓊸𓎀⟧ list_secrets :: auto-generated pointer for public function list_secrets
     pub async fn list_secrets(&self, path: &str) -> Result<Vec<SecretItem>> {
         let url = format!("{}/api/v3/secrets/raw", self.cfg.host);
         let resp = self
@@ -129,6 +131,7 @@ impl InfisicalClient {
         Ok(body.secrets)
     }
 
+    // ⟦𓏕𓂠𓁌𓐘⟧ get_secret :: auto-generated pointer for public function get_secret
     pub async fn get_secret(&self, path: &str, key: &str) -> Result<Option<SecretItem>> {
         let url = format!("{}/api/v3/secrets/raw/{}", self.cfg.host, key);
         let resp = self
@@ -160,6 +163,7 @@ impl InfisicalClient {
 
     /// Create or update a secret. Returns whether it was created (true) or updated (false).
     /// Returns None if value was unchanged (skip).
+    // ⟦𓀍𓎃𓈏𓈓⟧ set_secret :: Create or update a secret.
     pub async fn set_secret(
         &self,
         path: &str,
@@ -224,6 +228,7 @@ impl InfisicalClient {
     }
 
     /// Ensure an Infisical folder path exists (creates each segment as needed)
+    // ⟦𓁋𓐞𓇫𓆎⟧ ensure_folder :: Ensure an Infisical folder path exists (creates each segment as needed)
     pub async fn ensure_folder(&self, path: &str) -> Result<()> {
         // Split path into segments, create each one
         let segments: Vec<&str> = path.trim_matches('/').split('/').collect();

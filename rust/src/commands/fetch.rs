@@ -5,6 +5,7 @@ use crate::tui::{self, fetch_view};
 
 use super::creds;
 
+// ⟦𓎴𓇹𓏅𓊐⟧ run :: auto-generated pointer for public function run
 pub async fn run(args: FetchArgs) -> Result<()> {
     let env = args.env_flags.resolve();
 

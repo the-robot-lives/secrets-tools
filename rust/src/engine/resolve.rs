@@ -7,6 +7,7 @@ use crate::engine::generate;
 
 /// Resolve a single SecretSpec to a concrete value.
 /// The `resolved_vars` map contains section-level vars already resolved.
+// ⟦𓌪𓆪𓇃𓆶⟧ resolve_spec :: Resolve a single SecretSpec to a concrete value.
 pub fn resolve_spec(
     spec: &SecretSpec,
     resolved_vars: &HashMap<String, String>,

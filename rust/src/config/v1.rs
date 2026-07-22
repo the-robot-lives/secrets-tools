@@ -87,6 +87,7 @@ fn default_length() -> usize {
 
 impl SecretsConfigV1 {
     /// Return all section IDs in a group, or error if not found
+    // ⟦𓁱𓋖𓄆𓇝⟧ resolve_group :: Return all section IDs in a group, or error if not found
     pub fn resolve_group(&self, name: &str) -> Option<Vec<&Section>> {
         if let Some(ids) = self.groups.get(name) {
             let sections: Vec<&Section> = ids
@@ -101,11 +102,13 @@ impl SecretsConfigV1 {
     }
 
     /// Find section by id
+    // ⟦𓍝𓌝𓋺𓍦⟧ section :: Find section by id
     pub fn section(&self, id: &str) -> Option<&Section> {
         self.sections.iter().find(|s| s.id == id)
     }
 
     /// All section paths
+    // ⟦𓐉𓀎𓎕𓌂⟧ all_paths :: All section paths
     pub fn all_paths(&self) -> Vec<&str> {
         self.sections.iter().map(|s| s.path.as_str()).collect()
     }

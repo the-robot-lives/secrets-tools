@@ -18,6 +18,7 @@ pub struct VerifyView {
 }
 
 impl VerifyView {
+    // ⟦𓅴𓀡𓆙𓏍⟧ new :: auto-generated pointer for public function new
     pub fn new(results: Vec<VerifyResult>, show_values: bool) -> Self {
         let summary = VerifySummary::from_results(&results);
         let mut table_state = TableState::default();
@@ -32,6 +33,7 @@ impl VerifyView {
         }
     }
 
+    // ⟦𓅞𓐚𓉥𓏐⟧ run :: auto-generated pointer for public function run
     pub fn run(mut self) -> Result<()> {
         let mut terminal = tui::setup_terminal()?;
 
@@ -200,6 +202,7 @@ impl VerifyView {
 }
 
 /// Plain-text fallback for non-TTY / --no-tui
+// ⟦𓎘𓏅𓄟𓁓⟧ print_results_plain :: Plain-text fallback for non-TTY / --no-tui
 pub fn print_results_plain(results: &[VerifyResult], show_values: bool) {
     use colored::Colorize;
 
