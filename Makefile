@@ -15,9 +15,14 @@ compile:
 		cd $(RUST_DIR) && cargo build --release; \
 	fi
 
-# Run any tests (stub for now)
+# Run unit tests: shell redaction guards + Rust dc_get reveal
 test:
-	@cd $(RUST_DIR) && cargo test 2>/dev/null || true
+	@bash tests/test_populate_redaction.sh
+	@if command -v cargo >/dev/null 2>&1; then \
+		cd $(RUST_DIR) && cargo test is_redaction_sentinel -- --nocapture && cargo test dc_get_requires_reveal -- --nocapture; \
+	else \
+		echo "secret-utils: cargo not found; skipped rust tests"; \
+	fi
 
 # Install the Rust binary (default)
 install: compile

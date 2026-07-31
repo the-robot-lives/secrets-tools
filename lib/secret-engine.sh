@@ -557,3 +557,46 @@ verify_all() {
 
   echo "$output]"
 }
+
+# -- Redaction / machine-safe dc resolution ----------------------------------
+# dc get without --reveal prints a human redaction mask for encrypted values.
+# Machine consumers (populate) MUST use --reveal and MUST refuse to push that
+# mask into Infisical (non-empty overwrite would corrupt live secrets).
+
+# Known redaction sentinels emitted by dc when secrets are not revealed.
+# Returns 0 if value is a sentinel (must not be written to Infisical).
+is_redaction_sentinel() {
+  local value="${1:-}"
+  case "$value" in
+    '🔒 **redacted**'|'**redacted**'|'🔒 **redacted**'|$'🔒 **redacted**')
+      return 0
+      ;;
+  esac
+  # Also match without relying on emoji encoding: ends with " **redacted**"
+  # or is exactly **redacted** (already covered) / contains only redaction token.
+  if [[ "$value" == *'**redacted**'* ]] && [[ ${#value} -le 32 ]]; then
+    return 0
+  fi
+  return 1
+}
+
+# Build and run a machine-safe `dc get` for a v1 secrets-tools dc field.
+# Always passes --reveal so encrypted .envrc.dc values decrypt.
+# Args: dc_config (e.g. services), dc_path (e.g. apps.foo), optional extra
+#       args after -- (override/fallback/auto/default already applied by caller
+#       via remaining argv).
+# Usage: dc_get_revealed services apps.foo_password
+#        dc_get_revealed services apps.foo -- --override FOO --default bar
+dc_get_revealed() {
+  local dc_config="$1" dc_path="$2"
+  shift 2 || true
+  local extra=()
+  if [[ "${1:-}" == "--" ]]; then
+    shift
+    extra=("$@")
+  elif [[ $# -gt 0 ]]; then
+    extra=("$@")
+  fi
+  # --raw avoids decorative output; --reveal decrypts ENC values (audited).
+  dc get "$dc_config" "$dc_path" --reveal --raw "${extra[@]}" 2>/dev/null || true
+}

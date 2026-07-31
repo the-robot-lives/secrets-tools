@@ -7,11 +7,19 @@ use crate::error::InfisicalError;
 
 // ── dc CLI wrapper ────────────────────────────────────────────────────────────
 
-/// Run `dc get <scope> <item_path>` and return the value string
+/// Known dc redaction masks — must never be treated as real secret values.
+pub fn is_redaction_sentinel(value: &str) -> bool {
+    matches!(value, "🔒 **redacted**" | "**redacted**")
+        || (value.contains("**redacted**") && value.len() <= 32)
+}
+
+/// Run `dc get <scope> <item_path>` with `--reveal --raw` so encrypted
+/// `.envrc.dc` values decrypt. Without `--reveal`, dc emits a redaction
+/// mask that must not be pushed into Infisical.
 // ⟦𓎫𓄋𓈕𓉩⟧ dc_get :: Run `dc get <scope> <item_path>` and return the value string
 pub fn dc_get(scope: &str, item_path: &str) -> Result<String> {
     let output = std::process::Command::new("dc")
-        .args(["get", scope, item_path])
+        .args(["get", scope, item_path, "--reveal", "--raw"])
         .output()
         .context("run dc get — is 'dc' on PATH?")?;
 
@@ -23,7 +31,14 @@ pub fn dc_get(scope: &str, item_path: &str) -> Result<String> {
         .into());
     }
 
-    Ok(String::from_utf8_lossy(&output.stdout).trim().to_owned())
+    let value = String::from_utf8_lossy(&output.stdout).trim().to_owned();
+    if is_redaction_sentinel(&value) {
+        return Err(InfisicalError::DcCli(format!(
+            "dc get {scope} {item_path}: resolved to redaction sentinel (refusing)"
+        ))
+        .into());
+    }
+    Ok(value)
 }
 
 /// Run `dc set <scope> <item_path> <value>`
@@ -140,4 +155,82 @@ pub fn find_envrc_dc() -> Result<PathBuf> {
         }
     }
     Err(InfisicalError::EnvrcNotFound.into())
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::fs;
+    use std::os::unix::fs::PermissionsExt;
+    use std::sync::Mutex;
+
+    // Serialize PATH mutation across tests.
+    static PATH_LOCK: Mutex<()> = Mutex::new(());
+
+    #[test]
+    fn redaction_sentinel_matches_known_masks() {
+        assert!(is_redaction_sentinel("🔒 **redacted**"));
+        assert!(is_redaction_sentinel("**redacted**"));
+        assert!(is_redaction_sentinel("x **redacted**"));
+        assert!(!is_redaction_sentinel(
+            "a-real-64-byte-secret-value-that-is-long-enough-abcdefghij"
+        ));
+        assert!(!is_redaction_sentinel(""));
+        // Long string that merely mentions the token should not match (len > 32)
+        assert!(!is_redaction_sentinel(
+            "note: values looking like **redacted** should not appear in production dumps ever"
+        ));
+    }
+
+    #[test]
+    fn dc_get_requires_reveal_and_rejects_sentinel() {
+        let _guard = PATH_LOCK.lock().unwrap();
+        let dir = tempfile_dir();
+        let mock = dir.join("dc");
+        // Mock dc: without --reveal return redaction; with --reveal return real value.
+        fs::write(
+            &mock,
+            r#"#!/usr/bin/env bash
+set -euo pipefail
+args="$*"
+if [[ "$args" == *"--reveal"* ]]; then
+  printf '%s' 'real-secret-value-from-mock-dc-abcdefghijklmnopqrstuvwxyz012345'
+  exit 0
+fi
+printf '%s' '🔒 **redacted**'
+exit 0
+"#,
+        )
+        .unwrap();
+        let mut perms = fs::metadata(&mock).unwrap().permissions();
+        perms.set_mode(0o755);
+        fs::set_permissions(&mock, perms).unwrap();
+
+        let old_path = std::env::var("PATH").unwrap_or_default();
+        std::env::set_var("PATH", format!("{}:{}", dir.display(), old_path));
+
+        let got = dc_get("services", "apps.test_secret").expect("dc_get should reveal");
+        assert_eq!(
+            got,
+            "real-secret-value-from-mock-dc-abcdefghijklmnopqrstuvwxyz012345"
+        );
+        assert!(!is_redaction_sentinel(&got));
+
+        // Without our --reveal flags, mock would emit sentinel — ensure our
+        // helper would refuse that string if it ever appeared.
+        assert!(is_redaction_sentinel("🔒 **redacted**"));
+
+        std::env::set_var("PATH", old_path);
+        let _ = fs::remove_dir_all(&dir);
+    }
+
+    fn tempfile_dir() -> PathBuf {
+        let dir = std::env::temp_dir().join(format!(
+            "secret-utils-dc-test-{}",
+            std::process::id()
+        ));
+        let _ = fs::remove_dir_all(&dir);
+        fs::create_dir_all(&dir).unwrap();
+        dir
+    }
 }
