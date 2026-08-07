@@ -1,11 +1,12 @@
 # Layout — rust/
 
 Rust rewrite of the shell tooling: single `infisical` binary (CLI + ratatui
-TUI). Built via `make compile`; installed by `make install`.
+TUI). Built via `make compile`; installed by `make install` when `cargo` is
+present. Parent map: [../PROJ-LAYOUT.md](../PROJ-LAYOUT.md).
 
 ```
 rust/
-├── Cargo.toml                  # Package manifest — bin "infisical" (clap, tokio, reqwest, serde)
+├── Cargo.toml                  # Package manifest — bin "infisical"
 ├── Cargo.lock                  # Locked dependency versions
 ├── target/                     # Build output (gitignored)
 └── src/
@@ -16,15 +17,15 @@ rust/
     ├── api/                    # Infisical HTTP API client
     │   ├── mod.rs              #   Client + auth (Universal Auth)
     │   └── types.rs            #   Request/response types
-    ├── commands/               # One module per subcommand
+    ├── commands/               # One module per subcommand (+ helpers)
     │   ├── mod.rs
-    │   ├── audit.rs            #   Audit Infisical vs definitions
+    │   ├── audit.rs            #   Audit Infisical vs definitions / dc
     │   ├── bootstrap.rs        #   Bootstrap tier-0 k8s Secrets
-    │   ├── creds.rs            #   Credential resolution/management
+    │   ├── creds.rs            #   Credential resolution (shared helper)
     │   ├── fetch.rs            #   Fetch secret values
     │   ├── find_dc_line.rs     #   Locate secret source line in .envrc.dc
     │   ├── populate.rs         #   Seed definitions → Infisical
-    │   ├── rebuild.rs          #   Rebuild/re-sync from definitions
+    │   ├── rebuild.rs          #   Rebuild local defs from Infisical
     │   ├── set_secret.rs       #   Set a single secret
     │   ├── verify.rs           #   Verify values vs expected sources
     │   └── view_dc.rs          #   View dc-sourced values (masked)
@@ -43,3 +44,6 @@ rust/
         ├── populate_view.rs    #   Populate progress view
         └── verify_view.rs      #   Verify results view
 ```
+
+Public subcommands (`infisical --help`): `audit`, `bootstrap`, `fetch`,
+`find-dc-line`, `populate`, `rebuild`, `set`, `verify`, `view-dc`.
