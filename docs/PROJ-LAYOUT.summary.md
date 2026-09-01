@@ -30,10 +30,12 @@ secret-utils/
 │   ├── PROJ-LAYOUT.md · PROJ-LAYOUT.summary.md
 │   ├── PROJ-HOWTO.md · PROJ-HOWTO.summary.md
 │   ├── PROJ-FAQ.md · PROJ-FAQ.summary.md
+│   ├── PROJ-SCHEMA.md · PROJ-SCHEMA.summary.md
 │   ├── arch/                         # data-flow.md, secret-topology.md
 │   ├── howto/                        # populate-secrets.md, rebuild-from-infisical.md
 │   └── layout/                       # bin.md, rust.md
 ├── CHANGELOG.md
+├── merge-notes.md                  # Branch-sweep/merge journal
 ├── Makefile                          # compile / test / install
 ├── README.md
 ├── envrc.dc.example

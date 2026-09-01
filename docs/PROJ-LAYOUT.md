@@ -38,6 +38,7 @@ secret-utils/
 │   ├── PROJ-LAYOUT.md(+.summary)   # This file + tree-only companion
 │   ├── PROJ-HOWTO.md(+.summary)    # Task guides index + companion
 │   ├── PROJ-FAQ.md(+.summary)      # FAQ + companion
+│   ├── PROJ-SCHEMA.md(+.summary)   # Config/data artifacts (no DB) + companion
 │   ├── arch/
 │   │   ├── data-flow.md            #   Secret data-flow diagrams
 │   │   └── secret-topology.md      #   Source/destination topology
@@ -48,6 +49,7 @@ secret-utils/
 │       ├── bin.md                  #   Full bin/ inventory
 │       └── rust.md                 #   Full rust/src/ inventory
 ├── CHANGELOG.md                    # Package changelog / milestones
+├── merge-notes.md                  # Branch-sweep/merge journal (sep-1 sweep note)
 ├── .gitignore                      # rust/target, .env, .envrc.local, editor junk
 ├── Makefile                        # compile / test / install (+ legacy fallback)
 ├── README.md                       # Start here — prereqs, config, tool table

@@ -184,6 +184,7 @@ host typically come from monorepo `.envrc.k8.dc` / Infisical sections of
 
 - [arch/data-flow.md](arch/data-flow.md) — hydrate + populate steps
 - [arch/secret-topology.md](arch/secret-topology.md) — platform folder map / fan-out
+- [PROJ-SCHEMA.md](PROJ-SCHEMA.md) — config/data artifact schemas (no DB)
 - [layout/rust.md](layout/rust.md), [layout/bin.md](layout/bin.md)
 - [PROJ-HOWTO.md](PROJ-HOWTO.md), [PROJ-FAQ.md](PROJ-FAQ.md)
 - Package [README.md](../README.md)
