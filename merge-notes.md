@@ -22,3 +22,4 @@ Pruned merged branches: 0.
 
 ## Open PRs
 none
+- Dual checkout: made in this checkout; twin checkout `utilities/k8/secret-utils` shares the remote and was NOT touched.
