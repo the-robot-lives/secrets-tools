@@ -6,6 +6,17 @@ Claude Code loads [CLAUDE.md](./CLAUDE.md). Same policy; this file is the harnes
 
 ## MUST (every turn)
 
+1. **Never print secret values.** Use agent-safe ops only.
+2. **PRs target `develop`.** Never merge or push `main` (CI/CD-only release path).
+
+## Identity
+
+Guidance for **Codex**, **Grok**, **Cursor**, and other `AGENTS.md` / `AGENT.md` tools.
+
+Claude Code loads [CLAUDE.md](./CLAUDE.md). Same policy; this file is the harness-shaped sibling (numbered MUST first, markdown headings). If both this file and a parent `AGENTS.md` load, **this file wins on conflict**.
+
+## MUST (every turn)
+
 1. **Trinity Protocol (REQUIRED)**: substantive responses run Orientation → Friction → Response (assumptions surfaced; WEDGE/SHADOW/CRITIC; meta-review). Full text: trl-infra `protocols/the-trinity-protocol.md` (+ `.summary.md`).
 2. **No shell in the main thread** — delegate lookups/builds/test runs to tasker subagents; they report answers, not raw output.
 3. **All work on worktrees** (from this repo's own .git). Integration-testing consolidation branches: `epic.<group>` forked from `develop` (`feature/if-testing-just-one` for single items); feature→epic merges use PR + squash flow for provenance; a fully-passing epic becomes one PR for the group.
