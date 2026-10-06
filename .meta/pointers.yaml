@@ -1,0 +1,330 @@
+---
+pointers:
+  60ebc1d2-5335-5186-b2a3-92e54034cb53:
+    created_at: 2026-09-14T20:42:45.979564Z
+    description: Find a specific directive by scope + item_path
+    file_path: rust/src/dc.rs
+    function: find_dc_directive
+    line: 94
+    token: 𓐬𓈚𓈈𓍐
+    updated_at: 2026-09-14T20:42:45.979564Z
+  c9e55349-fac8-5109-8fd5-a7727de23d67:
+    created_at: 2026-09-14T20:42:45.987778Z
+    description: Parse all `dc get SCOPE ITEM.PATH` directives from a .envrc.dc file
+    file_path: rust/src/dc.rs
+    function: parse_envrc_dc
+    line: 71
+    token: 𓇏𓌮𓅲𓈅
+    updated_at: 2026-09-14T20:42:45.987778Z
+  ce544a09-3c7b-58f9-960a-49edee77da66:
+    created_at: 2026-09-14T20:42:45.978010Z
+    description: Verify all sections
+    file_path: rust/src/engine/mod.rs
+    function: verify_all
+    line: 144
+    token: 𓉈𓄧𓇵𓂻
+    updated_at: 2026-09-14T20:42:45.978010Z
+  3f53408b-0f2c-5b66-9280-4aa6a4413059:
+    created_at: 2026-09-14T20:42:45.978493Z
+    description: auto-generated pointer for public function muted
+    file_path: rust/src/tui/theme.rs
+    function: muted
+    line: 22
+    token: 𓀝𓎕𓎰𓎟
+    updated_at: 2026-09-14T20:42:45.978493Z
+  000ac1ef-2b2c-5a8a-99da-333c46ca4bbb:
+    created_at: 2026-09-14T20:42:45.986925Z
+    description: All section paths
+    file_path: rust/src/config/v1.rs
+    function: all_paths
+    line: 111
+    token: 𓐉𓀎𓎕𓌂
+    updated_at: 2026-09-14T20:42:45.986925Z
+  a7de8a87-7766-557d-a3ce-6c2bee71ad19:
+    created_at: 2026-09-14T20:42:45.978471Z
+    description: Create or update a secret.
+    file_path: rust/src/api/mod.rs
+    function: set_secret
+    line: 166
+    token: 𓀍𓎃𓈏𓈓
+    updated_at: 2026-09-14T20:42:45.978471Z
+  bf2559ad-700c-5e79-9f1f-f6ba948334d7:
+    created_at: 2026-09-14T20:42:45.976605Z
+    description: auto-generated pointer for public function selected
+    file_path: rust/src/tui/theme.rs
+    function: selected
+    line: 32
+    token: 𓐦𓅿𓋚𓅅
+    updated_at: 2026-09-14T20:42:45.976605Z
+  824e0313-f270-5fbc-b282-11f7d095084a:
+    created_at: 2026-09-14T20:42:45.986790Z
+    description: Ensure an Infisical folder path exists (creates each segment as needed)
+    file_path: rust/src/api/mod.rs
+    function: ensure_folder
+    line: 231
+    token: 𓁋𓐞𓇫𓆎
+    updated_at: 2026-09-14T20:42:45.986790Z
+  f86c530b-9408-5056-b52a-cb70cf4c71a4:
+    created_at: 2026-09-14T20:42:45.986221Z
+    description: Return all section IDs in a group, or error if not found
+    file_path: rust/src/config/v1.rs
+    function: resolve_group
+    line: 90
+    token: 𓁱𓋖𓄆𓇝
+    updated_at: 2026-09-14T20:42:45.986221Z
+  4fd63129-d6af-5ecd-b073-56b40ac02081:
+    created_at: 2026-09-14T20:42:45.989820Z
+    description: Walk up from cwd to find .envrc.dc
+    file_path: rust/src/dc.rs
+    function: find_envrc_dc
+    line: 130
+    token: 𓀾𓁛𓌑𓃄
+    updated_at: 2026-09-14T20:42:45.989820Z
+  59dff8af-1c34-5cc3-8a87-8047140b7295:
+    created_at: 2026-09-14T20:42:45.977577Z
+    description: auto-generated pointer for public function key_desc
+    file_path: rust/src/tui/theme.rs
+    function: key_desc
+    line: 53
+    token: 𓇩𓇓𓎭𓏀
+    updated_at: 2026-09-14T20:42:45.977577Z
+  ed0dabf9-bda9-5d53-b0d2-54c660c97a83:
+    created_at: 2026-09-14T20:42:45.985566Z
+    description: Run `dc get <scope> <item_path>` and return the value string
+    file_path: rust/src/dc.rs
+    function: dc_get
+    line: 11
+    token: 𓎫𓄋𓈕𓉩
+    updated_at: 2026-09-14T20:42:45.985566Z
+  9552bcaf-768a-587e-9b6b-f1e9425aa894:
+    created_at: 2026-09-14T20:42:45.979127Z
+    description: auto-generated pointer for public function symbol
+    file_path: rust/src/tui/populate_view.rs
+    function: symbol
+    line: 21
+    token: 𓈙𓁒𓏀𓋡
+    updated_at: 2026-09-14T20:42:45.979127Z
+  888a8bc2-1f1e-5ab3-9e80-23721fca002c:
+    created_at: 2026-09-14T20:42:45.975885Z
+    description: 'Verify a single secret: compare dc value vs Infisical value'
+    file_path: rust/src/engine/mod.rs
+    function: verify_secret
+    line: 65
+    token: 𓐒𓂷𓍰𓇆
+    updated_at: 2026-09-14T20:42:45.975885Z
+  81f294f1-11d5-5eb7-805c-f0ba0bd376fc:
+    created_at: 2026-09-14T20:42:45.983673Z
+    description: Run `dc set <scope> <item_path> <value>`
+    file_path: rust/src/dc.rs
+    function: dc_set
+    line: 30
+    token: 𓎩𓅱𓈧𓄎
+    updated_at: 2026-09-14T20:42:45.983673Z
+  ce6cbd23-9859-5fbe-8764-a0a2786290a9:
+    created_at: 2026-09-14T20:42:45.988340Z
+    description: Plain-text fallback for non-TTY / --no-tui
+    file_path: rust/src/tui/verify_view.rs
+    function: print_results_plain
+    line: 205
+    token: 𓎘𓏅𓄟𓁓
+    updated_at: 2026-09-14T20:42:45.988340Z
+  c4ade7cc-eade-5e99-bff6-e3bdf9053e6e:
+    created_at: 2026-09-14T20:42:45.978131Z
+    description: auto-generated pointer for public function build_client
+    file_path: rust/src/commands/creds.rs
+    function: build_client
+    line: 20
+    token: 𓃋𓉗𓀔𓎟
+    updated_at: 2026-09-14T20:42:45.978131Z
+  09a1f0fe-0d6d-5b6f-ad6f-8b0b9155dc41:
+    created_at: 2026-09-14T20:42:45.987808Z
+    description: auto-generated pointer for public function ok
+    file_path: rust/src/tui/theme.rs
+    function: ok
+    line: 6
+    token: 𓊑𓐪𓆰𓐗
+    updated_at: 2026-09-14T20:42:45.987808Z
+  6fbe959c-b97e-5e94-9583-8ee82f3934cc:
+    created_at: 2026-09-14T20:42:45.983814Z
+    description: Read a key event, return (key_code, modifiers)
+    file_path: rust/src/tui/mod.rs
+    function: read_key
+    line: 45
+    token: 𓁧𓆩𓐍𓍴
+    updated_at: 2026-09-14T20:42:45.983814Z
+  3316523a-ecb4-51cd-a131-c5c3373b7086:
+    created_at: 2026-09-14T20:42:45.988101Z
+    description: auto-generated pointer for public function border
+    file_path: rust/src/tui/theme.rs
+    function: border
+    line: 45
+    token: 𓈯𓂅𓆧𓃸
+    updated_at: 2026-09-14T20:42:45.988101Z
+  5ca95870-b132-58a3-977e-bb05cc9c02c4:
+    created_at: 2026-09-14T20:42:45.989704Z
+    description: auto-generated pointer for public function warn
+    file_path: rust/src/tui/theme.rs
+    function: warn
+    line: 14
+    token: 𓃡𓇴𓆖𓏇
+    updated_at: 2026-09-14T20:42:45.989704Z
+  db93737a-9d58-5c8a-a9ba-941ddc4d4464:
+    created_at: 2026-09-14T20:42:45.988238Z
+    description: Set up the terminal for TUI rendering.
+    file_path: rust/src/tui/mod.rs
+    function: setup_terminal
+    line: 22
+    token: 𓎟𓍚𓏏𓁤
+    updated_at: 2026-09-14T20:42:45.988238Z
+  065b45b3-f2fc-5c9c-8613-8270e178381d:
+    created_at: 2026-09-14T20:42:45.982265Z
+    description: auto-generated pointer for public function from_results
+    file_path: rust/src/engine/mod.rs
+    function: from_results
+    line: 177
+    token: 𓅢𓏲𓎇𓊅
+    updated_at: 2026-09-14T20:42:45.982265Z
+  d4180f24-0556-5745-8c07-d3b56fee05a4:
+    created_at: 2026-09-14T20:42:45.983799Z
+    description: auto-generated pointer for public function restore_terminal
+    file_path: rust/src/tui/mod.rs
+    function: restore_terminal
+    line: 32
+    token: 𓍼𓅣𓊊𓃴
+    updated_at: 2026-09-14T20:42:45.983799Z
+  4e057fb3-9606-50ce-8417-c4110ed6c1f9:
+    created_at: 2026-09-14T20:42:45.980020Z
+    description: auto-generated pointer for public function is_ok
+    file_path: rust/src/engine/mod.rs
+    function: is_ok
+    line: 25
+    token: 𓐘𓍫𓆾𓊭
+    updated_at: 2026-09-14T20:42:45.980020Z
+  9d15c642-276f-572a-9079-f6f5166db880:
+    created_at: 2026-09-14T20:42:45.987663Z
+    description: Simple in-place progress list printed to stdout (no alternate screen)
+    file_path: rust/src/tui/populate_view.rs
+    function: print_event
+    line: 35
+    token: 𓄇𓌘𓅯𓊿
+    updated_at: 2026-09-14T20:42:45.987663Z
+  20e5b2dd-fb2c-5ea5-8f78-11fbb2f31edf:
+    created_at: 2026-09-14T20:42:45.987175Z
+    description: auto-generated pointer for public function generate_value
+    file_path: rust/src/engine/generate.rs
+    function: generate_value
+    line: 9
+    token: 𓆮𓃷𓍁𓅅
+    updated_at: 2026-09-14T20:42:45.987175Z
+  e5cb3a57-5e71-5109-a58a-e4fec0473fe3:
+    created_at: 2026-09-14T20:42:45.978176Z
+    description: Plain-text fallback
+    file_path: rust/src/tui/fetch_view.rs
+    function: print_secrets_plain
+    line: 158
+    token: 𓁦𓅋𓀜𓎾
+    updated_at: 2026-09-14T20:42:45.978176Z
+  5be7ff0c-ef1e-5cc8-9b14-2b5cb771a9fa:
+    created_at: 2026-09-14T20:42:45.985700Z
+    description: auto-generated pointer for public function list_secrets
+    file_path: rust/src/api/mod.rs
+    function: list_secrets
+    line: 106
+    token: 𓏮𓇮𓊸𓎀
+    updated_at: 2026-09-14T20:42:45.985700Z
+  5d738fec-f0be-5654-80c5-bcfdfff09d50:
+    created_at: 2026-09-14T20:42:45.978660Z
+    description: Verify all secrets in a section
+    file_path: rust/src/engine/mod.rs
+    function: verify_section
+    line: 122
+    token: 𓃳𓃈𓐟𓏯
+    updated_at: 2026-09-14T20:42:45.978660Z
+  dda98d6f-f931-5a76-a0dc-d07717f86bc5:
+    created_at: 2026-09-14T20:42:45.989036Z
+    description: Resolve a single SecretSpec to a concrete value.
+    file_path: rust/src/engine/resolve.rs
+    function: resolve_spec
+    line: 10
+    token: 𓌪𓆪𓇃𓆶
+    updated_at: 2026-09-14T20:42:45.989036Z
+  7c6e7a9e-9a1f-5659-b60c-5e478f5bbe41:
+    created_at: 2026-09-14T20:42:45.980763Z
+    description: auto-generated pointer for public function all_ok
+    file_path: rust/src/engine/mod.rs
+    function: all_ok
+    line: 194
+    token: 𓁥𓁂𓇿𓐈
+    updated_at: 2026-09-14T20:42:45.980763Z
+  74b38e66-3cad-5c7f-abbd-d214985236d5:
+    created_at: 2026-09-14T20:42:45.985062Z
+    description: Replace the content of a specific line in a file (1-indexed)
+    file_path: rust/src/dc.rs
+    function: edit_line
+    line: 108
+    token: 𓎧𓈬𓁃𓈸
+    updated_at: 2026-09-14T20:42:45.985062Z
+  48968bfc-f0c8-5815-b942-9cf66af7b918:
+    created_at: 2026-09-14T20:42:45.986812Z
+    description: Try `dc get`, return None on failure (for optional lookups)
+    file_path: rust/src/dc.rs
+    function: dc_get_optional
+    line: 47
+    token: 𓄾𓂘𓍺𓊢
+    updated_at: 2026-09-14T20:42:45.986812Z
+  5a375be6-8d9d-5bef-9324-d0a6a9a37a85:
+    created_at: 2026-09-14T20:42:45.976320Z
+    description: auto-generated pointer for public function header
+    file_path: rust/src/tui/theme.rs
+    function: header
+    line: 26
+    token: 𓈲𓄿𓈡𓂝
+    updated_at: 2026-09-14T20:42:45.976320Z
+  d818e54a-9fe1-57e7-a083-9d5c3c00cbfa:
+    created_at: 2026-09-14T20:42:45.979721Z
+    description: Render a footer line showing common key hints
+    file_path: rust/src/tui/mod.rs
+    function: key_hints
+    line: 55
+    token: 𓂉𓐟𓇻𓃻
+    updated_at: 2026-09-14T20:42:45.979721Z
+  0c37e3e9-0159-50f6-89dd-2631608336d7:
+    created_at: 2026-09-14T20:42:45.976535Z
+    description: Map VerifyStatus to a colored symbol + style
+    file_path: rust/src/tui/theme.rs
+    function: status_display
+    line: 60
+    token: 𓊆𓊭𓊿𓋼
+    updated_at: 2026-09-14T20:42:45.976535Z
+  52d9fbea-9697-5d15-8033-f51f85e741a2:
+    created_at: 2026-09-14T20:42:45.988434Z
+    description: Find section by id
+    file_path: rust/src/config/v1.rs
+    function: section
+    line: 105
+    token: 𓍝𓌝𓋺𓍦
+    updated_at: 2026-09-14T20:42:45.988434Z
+  ed459cbc-ae08-5076-b0cf-76ea2143001f:
+    created_at: 2026-09-14T20:42:45.983691Z
+    description: Walk up from cwd to find the secrets config file.
+    file_path: rust/src/config/mod.rs
+    function: discover_config
+    line: 37
+    token: 𓋇𓅦𓈒𓐂
+    updated_at: 2026-09-14T20:42:45.983691Z
+  decce80f-834d-584b-bcdf-8166c0f5b9f4:
+    created_at: 2026-09-14T20:42:45.978545Z
+    description: auto-generated pointer for public function key_hint
+    file_path: rust/src/tui/theme.rs
+    function: key_hint
+    line: 49
+    token: 𓌩𓅕𓎓𓅏
+    updated_at: 2026-09-14T20:42:45.978545Z
+  d0b48782-6305-5294-aa36-1daf6195c0fb:
+    created_at: 2026-09-14T20:42:45.986505Z
+    description: auto-generated pointer for public function is_tty
+    file_path: rust/src/tui/mod.rs
+    function: is_tty
+    line: 15
+    token: 𓄍𓈨𓎷𓉀
+    updated_at: 2026-09-14T20:42:45.986505Z
