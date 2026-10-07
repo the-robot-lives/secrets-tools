@@ -19,7 +19,7 @@ pub struct FetchView {
 }
 
 impl FetchView {
-    // ⟦𓐬𓍇𓋭𓇨⟧ new :: auto-generated pointer for public function new
+    // <REMOVED UUID HERE> new :: auto-generated pointer for public function new
     pub fn new(secrets: Vec<SecretItem>, path: String, env: String, redact: bool) -> Self {
         let mut table_state = TableState::default();
         if !secrets.is_empty() {
@@ -28,7 +28,7 @@ impl FetchView {
         Self { secrets, table_state, path, env, redact }
     }
 
-    // ⟦𓈆𓋃𓀖𓍊⟧ run :: auto-generated pointer for public function run
+    // <REMOVED UUID HERE> run :: auto-generated pointer for public function run
     pub fn run(mut self) -> Result<()> {
         let mut terminal = tui::setup_terminal()?;
 
@@ -155,7 +155,7 @@ fn redact_value(v: &str) -> String {
 }
 
 /// Plain-text fallback
-// ⟦𓁦𓅋𓀜𓎾⟧ print_secrets_plain :: Plain-text fallback
+// <REMOVED UUID HERE> print_secrets_plain :: Plain-text fallback
 pub fn print_secrets_plain(
     secrets: &[SecretItem],
     format: &crate::cli::FetchFormat,
