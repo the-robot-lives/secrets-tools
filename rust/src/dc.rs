@@ -16,7 +16,7 @@ pub fn is_redaction_sentinel(value: &str) -> bool {
 /// Run `dc get <scope> <item_path>` with `--reveal --raw` so encrypted
 /// `.envrc.dc` values decrypt. Without `--reveal`, dc emits a redaction
 /// mask that must not be pushed into Infisical.
-// ⟦𓎫𓄋𓈕𓉩⟧ dc_get :: Run `dc get <scope> <item_path>` and return the value string
+// <REMOVED UUID HERE> dc_get :: Run `dc get <scope> <item_path>` and return the value string
 pub fn dc_get(scope: &str, item_path: &str) -> Result<String> {
     let output = std::process::Command::new("dc")
         .args(["get", scope, item_path, "--reveal", "--raw"])
@@ -42,7 +42,7 @@ pub fn dc_get(scope: &str, item_path: &str) -> Result<String> {
 }
 
 /// Run `dc set <scope> <item_path> <value>`
-// ⟦𓎩𓅱𓈧𓄎⟧ dc_set :: Run `dc set <scope> <item_path> <value>`
+// <REMOVED UUID HERE> dc_set :: Run `dc set <scope> <item_path> <value>`
 pub fn dc_set(scope: &str, item_path: &str, value: &str) -> Result<()> {
     let status = std::process::Command::new("dc")
         .args(["set", scope, item_path, value])
@@ -59,7 +59,7 @@ pub fn dc_set(scope: &str, item_path: &str, value: &str) -> Result<()> {
 }
 
 /// Try `dc get`, return None on failure (for optional lookups)
-// ⟦𓄾𓂘𓍺𓊢⟧ dc_get_optional :: Try `dc get`, return None on failure (for optional lookups)
+// <REMOVED UUID HERE> dc_get_optional :: Try `dc get`, return None on failure (for optional lookups)
 pub fn dc_get_optional(scope: &str, item_path: &str) -> Option<String> {
     dc_get(scope, item_path).ok().filter(|s| !s.is_empty())
 }
@@ -83,7 +83,7 @@ fn dc_regex() -> &'static Regex {
 }
 
 /// Parse all `dc get SCOPE ITEM.PATH` directives from a .envrc.dc file
-// ⟦𓇏𓌮𓅲𓈅⟧ parse_envrc_dc :: Parse all `dc get SCOPE ITEM.PATH` directives from a .envrc.dc file
+// <REMOVED UUID HERE> parse_envrc_dc :: Parse all `dc get SCOPE ITEM.PATH` directives from a .envrc.dc file
 pub fn parse_envrc_dc(path: &Path) -> Result<Vec<DcDirective>> {
     let content = std::fs::read_to_string(path)
         .with_context(|| format!("read {:?}", path))?;
@@ -106,7 +106,7 @@ pub fn parse_envrc_dc(path: &Path) -> Result<Vec<DcDirective>> {
 }
 
 /// Find a specific directive by scope + item_path
-// ⟦𓐬𓈚𓈈𓍐⟧ find_dc_directive :: Find a specific directive by scope + item_path
+// <REMOVED UUID HERE> find_dc_directive :: Find a specific directive by scope + item_path
 pub fn find_dc_directive(
     path: &Path,
     scope: &str,
@@ -120,7 +120,7 @@ pub fn find_dc_directive(
 
 /// Replace the content of a specific line in a file (1-indexed)
 #[allow(dead_code)]
-// ⟦𓎧𓈬𓁃𓈸⟧ edit_line :: Replace the content of a specific line in a file (1-indexed)
+// <REMOVED UUID HERE> edit_line :: Replace the content of a specific line in a file (1-indexed)
 pub fn edit_line(path: &Path, line_number: usize, new_content: &str, backup: bool) -> Result<()> {
     let content = std::fs::read_to_string(path)?;
     let mut lines: Vec<&str> = content.lines().collect();
@@ -142,7 +142,7 @@ pub fn edit_line(path: &Path, line_number: usize, new_content: &str, backup: boo
 // ── .envrc.dc discovery ───────────────────────────────────────────────────────
 
 /// Walk up from cwd to find .envrc.dc
-// ⟦𓀾𓁛𓌑𓃄⟧ find_envrc_dc :: Walk up from cwd to find .envrc.dc
+// <REMOVED UUID HERE> find_envrc_dc :: Walk up from cwd to find .envrc.dc
 pub fn find_envrc_dc() -> Result<PathBuf> {
     let mut dir = std::env::current_dir()?;
     loop {
