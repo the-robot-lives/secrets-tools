@@ -44,12 +44,14 @@ infisical-populate-secrets --github-apply          # TTY: retype the plan sha wh
 infisical-populate-secrets --github-apply --yes --github-plan-sha=<sha-from-plan>   # non-TTY
 ```
 
-The plan sha covers the displayed rows (targets + names + ops + value sha8s),
-so any drift between plan and apply — a config edit, a different value — is
-rejected. `--github-repo=owner/repo` narrows both plan and apply to one repo
-(for smoke-testing a rollout). `--dry-run` forces plan-only even with apply
-flags. `--targets github` runs the GitHub leg without touching Infisical
-(Infisical auth is skipped entirely); default is both.
+The plan sha covers the displayed rows (targets + names + ops + value sha8s,
+newline-delimited so row boundaries bind), so any drift between plan and
+apply — a config edit, a different value — is rejected. `--github-repo=owner/repo`
+narrows both plan and apply to one repo (for smoke-testing a rollout).
+`--dry-run` forces plan-only even with apply flags. Targets: passing a github
+flag defaults to **github-only** — the Infisical leg (and its auth) is skipped
+entirely, so a github run can never surprise-write Infisical; pass
+`--targets=infisical,github` to run both legs in one invocation.
 
 ## The three gates
 

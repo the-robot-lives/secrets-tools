@@ -212,10 +212,21 @@ exec 3>"$SCRATCH/xtrace.log"
 BASH_XTRACEFD=3
 set -x
 ASSUME_YES=true github_apply >/dev/null 2>&1
+# restore check MUST run before this suite's own `set +x`
+if [[ $- == *x* ]]; then
+  XTRACE_RESTORED=1
+else
+  XTRACE_RESTORED=0
+fi
 set +x
 exec 3>&-
 assert_file_has "xtrace control: third value written" "VAL_THREE" "$GH_STDIN_LOG"
 assert_file_lacks "xtrace carries no value" "VAL_THREE" "$SCRATCH/xtrace.log"
+if [[ "$XTRACE_RESTORED" == 1 ]]; then
+  pass "xtrace state restored after apply (was on before)"
+else
+  fail "xtrace state restored after apply (silently left off)"
+fi
 
 echo "== scratch-wide value scan (stdin log is the ONLY home) =="
 LEAKFILES=$(grep -rl -- 'VAL_ONE\|VAL_TWO\|VAL_THREE\|z9q\$pecial' "$SCRATCH" 2>/dev/null | grep -v 'gh-stdin.log$' || true)
