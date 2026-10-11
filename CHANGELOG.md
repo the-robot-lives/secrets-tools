@@ -1,7 +1,27 @@
 # Changelog — utilities/k8/secret-utils
 
 ## [Unreleased]
-- (none currently)
+GitHub Actions secret sync (repo + environment scopes, v1) plus safety fixes to existing flows.
+
+### Added
+- `SecretSpec.github` block in `secrets.yaml`: fan a resolved secret out to GitHub Actions secrets (`as`, `repo` list, `environment` list, `trailing_newline`) — plan/apply workflow, three independent gates (`SECRET_UTILS_GITHUB_WRITES=1` env, typed/exact plan-sha confirmation, expected-logins identity assertion), tracked owner allowlist, canonical-repo checks (byte-identical `full_name`, private/non-fork/non-admin-refused), values via stdin only, append-only write ledger, fail-fast + `ROTATION REQUIRED FOR:` rotation banner. **Verification status: repo scope live-verifiable via `noizu-labs/trl-infra` (user's step — no live write was made during development); environment scope mock-only (trl-infra has zero environments); org/dependabot deferred to v2 (parsed, rejected with a pointer to the v2 requirements).** See `docs/howto/sync-github-secrets.md`.
+- New flags: `--github-push` (plan-only), `--github-apply`, `--github-repo=owner/repo` (filter), `--github-plan-sha=<sha>` + `--yes` (non-TTY confirm), `--github-use-env-token` (opt into env token; default strips `GH_TOKEN`/`GITHUB_TOKEN`), `--targets=infisical|github` (github-only runs skip Infisical auth).
+- `tests/test_github_schema.sh` (32 assertions) and `tests/test_github_writer.sh` (63 assertions incl. value-leakage scans: argv/stdout/stderr/xtrace/scratch), wired into `make test`.
+- `docs/howto/sync-github-secrets.md` (workflow, refusals, safety invariants, verification honesty labels, v2 org/dependabot requirements, rotation runbook).
+- Allowlist is tracked code: top-level `github_owners:` in the YAML is refused; `github:` via YAML anchor/alias is refused.
+
+### Changed
+- `docs/PROJ-SCHEMA.md` (+ summary): authoritative parser is now the **bash engine** (`bin/infisical-populate-secrets`); the Rust parser (`rust/src/config/v1.rs`) is documented as broken against the live schema (`dc: invalid type: string, expected struct DcRef`) — it cannot load the monorepo config today.
+- `--env=staging` + github targets is hard-refused (one GitHub secret namespace); plan flag use is incompatible with the `zellij` section fan-out.
+- Plan honesty: `gh secret list` exposes only name/`updatedAt`, so the plan distinguishes create vs update and never claims "unchanged"; duplicate identical targets collapse (`x2-sources` display), different store keys colliding on one GitHub slot hard-error.
+
+### Fixed
+- **Value leak into argv (urlencode)**: `render_template`'s urlencode passed the value as `python3 -c` argv; it now reads the value from stdin (`python3 -c … <<<"$val"` heredoc form with a single trailing-newline strip).
+- **Value leak into argv (Infisical writes)**: `set_secret` built JSON payloads via `curl -d "{...}"`; all three request bodies now go via `curl -d @-` with the body on stdin.
+- **Exit-0-on-failed-writes**: failed Infisical writes (and staging copies) now increment a failure counter and the script exits non-zero, including the Infisical path (both v1 and legacy engines).
+- **`--show-secrets` dead code**: the flag parsed but did nothing; it now hard-errors (exit 2) so nobody relies on a no-op that suggests values could be shown.
+- `GH_BIN` environment override was dead code (region init wiped it before the resolver read it).
+
 
 ## [m4-npl-docs-scaffolding] — 2026-07-16 — tag: `utilities-k8-secret-utils/m4-npl-docs-scaffolding`
 NPL-style architecture and layout docs added/expanded under `docs/`, giving the utility its own PROJ-ARCH/PROJ-LAYOUT reference pair plus per-directory layout notes.

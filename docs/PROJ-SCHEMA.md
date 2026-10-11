@@ -22,10 +22,16 @@ Arch context: [PROJ-ARCH.md](PROJ-ARCH.md) · Topology details:
 
 ## 1. `secrets.yaml` — declarative definitions (v1)
 
-Authoritative parser: `rust/src/config/v1.rs` (`SecretsConfigV1`).
+Authoritative parser: the **bash engine** in `bin/infisical-populate-secrets`
+(v1 engine loop + the `# -- github-sync BEGIN/END --` region). The Rust parser
+(`rust/src/config/v1.rs`, `SecretsConfigV1`) is **currently broken against the
+live schema** — e.g. it types `dc:` as a struct `DcRef` while the live config
+uses the string form (`dc: services apps.x`), failing with
+`invalid type: string, expected struct DcRef` — so the Rust binary cannot load
+the monorepo's `.infisical-secrets.yaml` today. Treat bash as the source of
+truth for schema semantics; `rust/src/config/legacy.rs` is likewise historical.
 Canonical shape: [secrets.yaml.example](../secrets.yaml.example) (copy →
-`.infisical-secrets.yaml` at monorepo root). A legacy shell-schema variant is
-still accepted by `rust/src/config/legacy.rs`.
+`.infisical-secrets.yaml` at monorepo root).
 
 ```mermaid
 erDiagram
@@ -57,6 +63,7 @@ erDiagram
         STRING auto "password|hex|django,length"
         BOOL optional
         STRING decode "base64"
+        STRING github "as + repo/environment fan-out (v1)"
     }
 ```
 
@@ -131,8 +138,8 @@ SecretSpec ||--o| AutoSpec : auto
 
 ### `SecretSpec` value resolution
 
-Sources are mutually combinable; precedence (authoritative order in
-`engine/resolve.rs` → `resolve_spec`, first non-empty wins):
+Sources are mutually combinable; precedence (authoritative order in the bash
+engine's `resolve_value`, first non-empty wins):
 
 `override` env → `dc` → `env` → `ref` → `template` → `file` → `fallback_dc`
 → `auto` generation → `default`. `optional: true` makes a missing value
@@ -151,6 +158,30 @@ interpolates `{{var}}` from vars/secrets (supports `{{var|urlencode}}`).
 | `default` | string | Static fallback |
 | `optional` | bool | Default false |
 | `decode` | string | e.g. `base64` |
+| `github` | `{as, repo?, environment?, trailing_newline?}` | Fan the resolved value out to GitHub Actions secrets (below) |
+
+### `SecretSpec.github` — GitHub Actions fan-out (v1)
+
+Writes the **same resolved value** to GitHub on **additional** targets after
+the Infisical upload. It never changes what lands in Infisical. v1 supports
+**repository** and **environment** Actions secrets only; `org:` and
+`app: dependabot` are *parsed but rejected* with a "deferred to v2" message so
+the seam is explicit (see [howto/sync-github-secrets.md](howto/sync-github-secrets.md)).
+
+| Key | Shape | Notes |
+|-----|-------|-------|
+| `as` | string | **Required.** GitHub secret name: `[A-Za-z0-9_]`, ≤ 100 chars, no `GITHUB_*` prefix |
+| `repo` | list of `owner/repo` | Repository Actions secrets. Owner must be in the **tracked allowlist** (`noizu-labs`, `noizu-labs-ml`, `the-robot-lives`; `noizu-forks` hard-denied) — the allowlist lives in code, and a top-level `github_owners:` key in the YAML is **refused** |
+| `environment` | list of `{repo, env}` | Environment-scoped secrets. The environment must already exist (the tool prints the exact `gh api --method PUT .../environments/<env>` command; it never auto-creates) and warns loudly when `protection_rules` is empty |
+| `trailing_newline` | `auto`\|`strip`\|`preserve` | Default `auto`: single-line values are stripped, multi-line/PEM values are preserved byte-exact |
+
+Guardrails (all enforced by `tests/test_github_schema.sh`): the `github:` block
+must be **literal** — a block supplied via YAML anchor/alias (or a `github:` key
+inside any anchor definition) is refused, because an anchor could smuggle a
+target list past review; duplicate repo entries are refused; an environment
+entry accepts exactly `repo` + `env`; unknown keys list the allowed set. The
+`--env=staging` scope is **refused** for github targets (one GitHub secret
+namespace — see the howto).
 
 ---
 
@@ -209,5 +240,7 @@ values are `<SECRET>` placeholders in the example — never committed.
 ## Migration history
 
 None — no migrations. Schema evolution is versioned by `apiVersion`
-(`secrets-tools/v1` current; `config/legacy.rs` reads pre-v1 files). Format
-changes land as a new `apiVersion` + parser module.
+(`secrets-tools/v1` current). Format changes land as a new `apiVersion` +
+parser module. Note: the Rust parsers (`rust/src/config/v1.rs`,
+`rust/src/config/legacy.rs`) are historical and currently broken against the
+live schema (see §1); the bash engine is authoritative.

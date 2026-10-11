@@ -7,7 +7,7 @@ Artifacts covered:
 
 | Artifact | Kind | Owner |
 |----------|------|-------|
-| `secrets.yaml` (`secrets-tools/v1`) | Declarative secret-definition config | this package (parser `rust/src/config/v1.rs`) |
+| `secrets.yaml` (`secrets-tools/v1`) | Declarative secret-definition config | this package (bash engine in `bin/infisical-populate-secrets`; Rust parser broken vs live schema) |
 | `.envrc.dc` dc store | Subjects × layers (base/`secrets`), `auto` gen values | direnv-config (format shared) |
 | Infisical folders | `sections[].path` tree (`/data/*`, `/apps/*`, `/shared/*`), env `prod` | external Infisical server |
 | `.secrets/tls/<domain>/*.pem` | PEM files via `file:` + `decode: base64` | filesystem (gitignored) |
@@ -37,10 +37,13 @@ erDiagram
     }
 ```
 
-Key resolution order (per `engine/resolve.rs`): `override` → `dc` → `env` →
+Key resolution order (per the bash engine's `resolve_value`): `override` → `dc` → `env` →
 `ref` → `template` → `file` → `fallback_dc` → `auto` (`length` default 32) →
 `default`; `optional: true` tolerates missing; templates interpolate `{{var}}`
-(+ `|urlencode`).
+(+ `|urlencode`). `SecretSpec.github` (`as` + `repo`/`environment` lists,
+tracked owner allowlist, anchor/alias refusal) fans the value out to GitHub
+Actions secrets — repo + environment scopes only in v1, org/dependabot
+deferred to v2.
 
 dc subjects this package reads: `secrets` (central defs), `auto`
 (generated), plus `platform`/`services` paths; creds for Infisical UA live in
