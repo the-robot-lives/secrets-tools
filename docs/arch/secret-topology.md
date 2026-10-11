@@ -2,7 +2,7 @@
 
 ## Infisical Folder Structure
 
-18 folders organized by service, each mapping to a K8s secret consumed by that service's pods:
+19 folders organized by service, each mapping to a K8s secret consumed by that service's pods:
 
 | Folder | Service | Key Secrets |
 |--------|---------|-------------|
@@ -22,8 +22,9 @@
 | `/donation` | Donation service | Stripe secret key, SendGrid API key |
 | `/fblogin` | Facebook OAuth | App ID, app secret, graph version, encryption key |
 | `/infra-directus` | Directus CMS | App secret, DB password, admin credentials, Redis password |
+| `/infra-docmost` | Docmost wiki | App secret, DB password, DATABASE_URL, REDIS_URL |
 | `/infra-posthog` | PostHog | Secret key, DB password, Redis password |
-| `/infra-valkey` | Valkey (infra namespace) | Per-service passwords (Infisical, Directus, PostHog) |
+| `/infra-valkey` | Valkey (infra namespace) | Per-service passwords (Infisical, Directus, PostHog, Docmost) |
 
 ## Cross-Folder Secret Sharing
 
@@ -50,6 +51,15 @@ DIRECTUS_REDIS_PASSWORD
 POSTHOG_REDIS_PASSWORD
   -> /infra-posthog/POSTHOG_REDIS_PASSWORD
   -> /infra-valkey/POSTHOG_PASSWORD
+
+DOCMOST_REDIS_PASSWORD
+  -> /infra-docmost/DOCMOST_REDIS_PASSWORD
+  -> /infra-valkey/DOCMOST_PASSWORD
+
+DOCMOST_DB_PASSWORD
+  -> /gnp-timescaledb/DOCMOST_DB_PASSWORD
+  -> /infra-docmost/DB_PASSWORD
+  -> /infra-docmost/DATABASE_URL (templated)
 ```
 
 ## Generation vs. Override
