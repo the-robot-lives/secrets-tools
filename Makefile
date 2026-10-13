@@ -18,6 +18,7 @@ compile:
 # Run unit tests: shell redaction guards + github sync schema/writer safety + Rust dc_get reveal
 test:
 	@bash tests/test_populate_redaction.sh
+	@bash tests/test_populate_safety.sh
 	@bash tests/test_github_schema.sh
 	@bash tests/test_github_writer.sh
 	@if command -v cargo >/dev/null 2>&1; then \

@@ -57,3 +57,38 @@ turn in the same terminal.
   session rather than nesting a new one.
 - Unknown section/group ids fail fast with `❌ Unknown section/group: <name>`
   before anything launches.
+
+## Scope is explicit (required)
+
+An unscoped run writes EVERY section in the config — historically that is how
+junk keys (literally named `<<` from a mis-resolved YAML merge key) and empty
+overwrites once spread project-wide. Whole-file runs are therefore refused:
+
+```bash
+infisical-populate-secrets                     # refuses (exit 2)
+infisical-populate-secrets --all               # deliberate whole-file run
+infisical-populate-secrets --include=webui     # --include is an alias for --section
+infisical-populate-secrets --section data-tier # one section or group
+```
+
+Unknown flags fail loudly (`Unknown flag: ...`, exit 2) instead of being
+silently ignored — a silently-ignored section flag once degraded a scoped run
+into a whole-file run.
+
+## Per-key outcomes and safety rails
+
+Every key reports exactly one outcome and the run ends with a summary
+(key NAMES only, never values): `created / updated / unchanged / skipped /
+error`. Exit is non-zero if any key errored. Specifically:
+
+- A **failed remote read** (network, 401, 5xx) aborts that key loudly — it is
+  never treated as "absent", so a live value can never be overwritten from an
+  unknown remote state.
+- A **locally-empty resolution** never overwrites an existing remote value and
+  never creates an empty one; the key is `skipped` with a pointer at fixing
+  the source (pin the dc source, set the override env, or mark it optional).
+- A **dc redaction sentinel** in a resolved value is refused, never written.
+- YAML **merge keys** (`<<:`) are exploded when the installed `yq` supports
+  it, and any surviving literal `<<` entry is dropped — a key named `<<` can
+  never be created again.
+- `--dry-run` probes but never writes.
