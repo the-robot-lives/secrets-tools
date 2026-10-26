@@ -1,5 +1,7 @@
 # How-To: Sync secrets to GitHub Actions
 
+<!-- 〚📁:5ef1560a-3820-5d50-8ec8-de8937996049〛 GITHUB-SYNC :: GitHub Actions secret fan-out — plan/apply workflow and the three gates -->
+
 `infisical-populate-secrets --github-push` extends the declarative
 `.infisical-secrets.yaml` flow: a secret that carries a `github:` block is
 resolved once (dc/env/ref/template/file/fallback_dc/auto/default — unchanged)

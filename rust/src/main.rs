@@ -1,3 +1,4 @@
+// 〚📁:8f94d705-784b-5e30-af59-55fb52e4b7fa〛 src/main.rs :: Entry point — module wiring and clap dispatch to subcommands
 mod api;
 mod cli;
 mod commands;

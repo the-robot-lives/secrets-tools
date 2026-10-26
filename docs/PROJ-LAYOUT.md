@@ -1,5 +1,7 @@
 # Project Layout — k8/secret-utils
 
+<!-- 〚📁:fb169e9d-7c10-5373-ae91-c9ab9e081ded〛 PROJ-LAYOUT :: Project tree map — bin/, lib/, rust/, tests/, docs/ -->
+
 Terminal utility package for secrets management: local env-file generation
 (`hydrate-envrc`) and Infisical lifecycle ops (populate, fetch, verify, set,
 audit, rebuild, bootstrap, export). Ships **legacy Bash** (`bin/` + `lib/`)

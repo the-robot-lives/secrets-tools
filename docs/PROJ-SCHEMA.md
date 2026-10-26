@@ -1,5 +1,7 @@
 # Project Schema — k8/secret-utils
 
+<!-- 〚📁:c84a5466-fdc0-56c5-bacb-507b5d9fe4f7〛 PROJ-SCHEMA :: Config/data artifacts — secrets-tools/v1, dc store, Infisical layout (no DB) -->
+
 **No persistence layer.** This package has no database, no SQL schema, and no
 Liquibase changelogs. Its tools are stateless CLIs: they *read* declarative
 config, *resolve* values from external sources, and *write* to the Infisical

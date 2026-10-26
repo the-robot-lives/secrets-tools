@@ -1,3 +1,4 @@
+// 〚📁:1c53add8-eea4-5287-b4b2-b88455c34363〛 engine/resolve.rs :: Multi-source value resolution layering (override → dc → env → ref → template → file → fallback_dc → auto → default)
 use anyhow::Result;
 use std::collections::HashMap;
 

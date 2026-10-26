@@ -1,5 +1,7 @@
 # secret-utils Architecture
 
+<!-- 〚📁:2383098a-e2ba-5011-942a-e79861048112〛 PROJ-ARCH :: Architecture — components, resolution layering, command map, GitHub fan-out -->
+
 ## Overview
 
 DevOps utility for secrets management on the Noizu k8s platform: local env-file

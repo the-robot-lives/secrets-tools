@@ -1,0 +1,122 @@
+---
+pointers:
+  1bc3add2-1d3d-538c-875c-d5b64bd87d89:
+    created_at: 2026-10-26T22:18:29.411115Z
+    description: dc bridge — `get --reveal --raw` read, redaction-sentinel refusal, `.envrc.dc` parse/locate
+    file_path: rust/src/dc.rs
+    function: dc.rs
+    kind: file
+    line: 1
+    locations:
+      - file_path: rust/src/dc.rs
+        line: 1
+    token: 𓭺𓀪𓃫𓳉
+    updated_at: 2026-10-26T22:18:29.411115Z
+  1c53add8-eea4-5287-b4b2-b88455c34363:
+    created_at: 2026-10-26T22:18:29.411093Z
+    description: Multi-source value resolution layering (override → dc → env → ref → template → file → fallback_dc → auto → default)
+    file_path: rust/src/engine/resolve.rs
+    function: engine/resolve.rs
+    kind: file
+    line: 1
+    locations:
+      - file_path: rust/src/engine/resolve.rs
+        line: 1
+    token: 𓉑𓚱𓁱𓴃
+    updated_at: 2026-10-26T22:18:29.411093Z
+  2383098a-e2ba-5011-942a-e79861048112:
+    created_at: 2026-10-26T22:18:29.411098Z
+    description: Architecture — components, resolution layering, command map, GitHub fan-out
+    file_path: docs/PROJ-ARCH.md
+    function: PROJ-ARCH
+    kind: file
+    line: 3
+    locations:
+      - file_path: docs/PROJ-ARCH.md
+        line: 3
+    token: 𓔃𓻛𔔉𓌂
+    updated_at: 2026-10-26T22:18:29.411098Z
+  5ef1560a-3820-5d50-8ec8-de8937996049:
+    created_at: 2026-10-26T22:18:29.411118Z
+    description: GitHub Actions secret fan-out — plan/apply workflow and the three gates
+    file_path: docs/howto/sync-github-secrets.md
+    function: GITHUB-SYNC
+    kind: file
+    line: 3
+    locations:
+      - file_path: docs/howto/sync-github-secrets.md
+        line: 3
+    token: 𔉪𔔘𓅝𔎩
+    updated_at: 2026-10-26T22:18:29.411118Z
+  8f94d705-784b-5e30-af59-55fb52e4b7fa:
+    created_at: 2026-10-26T22:18:29.411122Z
+    description: Entry point — module wiring and clap dispatch to subcommands
+    file_path: rust/src/main.rs
+    function: src/main.rs
+    kind: file
+    line: 1
+    locations:
+      - file_path: rust/src/main.rs
+        line: 1
+    token: 𔊎𓱎𓮩𓃪
+    updated_at: 2026-10-26T22:18:29.411122Z
+  a593d832-d2a8-5cc8-8a6e-81c4ed460c5c:
+    created_at: 2026-10-26T22:18:29.411111Z
+    description: Repo entry point — what the toolchain is, prereqs, tool table, getting started
+    file_path: README.md
+    function: README
+    kind: file
+    line: 3
+    locations:
+      - file_path: README.md
+        line: 3
+    token: 𓞼𓀁𓔐𓭬
+    updated_at: 2026-10-26T22:18:29.411111Z
+  c84a5466-fdc0-56c5-bacb-507b5d9fe4f7:
+    created_at: 2026-10-26T22:18:29.411075Z
+    description: Config/data artifacts — secrets-tools/v1, dc store, Infisical layout (no DB)
+    file_path: docs/PROJ-SCHEMA.md
+    function: PROJ-SCHEMA
+    kind: file
+    line: 3
+    locations:
+      - file_path: docs/PROJ-SCHEMA.md
+        line: 3
+    token: 𓁞𓯯𓇼𓆗
+    updated_at: 2026-10-26T22:18:29.411075Z
+  e1fbb5c6-73ce-5fb6-9193-a6e5146749e0:
+    created_at: 2026-10-26T22:18:29.411126Z
+    description: Infisical HTTP client — Universal Auth login, secrets raw v3, folder ensure v2, optional CF Access
+    file_path: rust/src/api/mod.rs
+    function: api/mod.rs
+    kind: file
+    line: 1
+    locations:
+      - file_path: rust/src/api/mod.rs
+        line: 1
+    token: 𔍋𔀴𔀭𓭀
+    updated_at: 2026-10-26T22:18:29.411126Z
+  fb169e9d-7c10-5373-ae91-c9ab9e081ded:
+    created_at: 2026-10-26T22:18:29.411130Z
+    description: Project tree map — bin/, lib/, rust/, tests/, docs/
+    file_path: docs/PROJ-LAYOUT.md
+    function: PROJ-LAYOUT
+    kind: file
+    line: 3
+    locations:
+      - file_path: docs/PROJ-LAYOUT.md
+        line: 3
+    token: 𔍻𓯓𓸑𓒍
+    updated_at: 2026-10-26T22:18:29.411130Z
+  fb6be9ad-c6a8-5557-9a00-8f1f125b529c:
+    created_at: 2026-10-26T22:18:29.411102Z
+    description: Threat model — trust boundaries, T-001–T-014 register, mitigations
+    file_path: docs/THREAT-MODEL.md
+    function: THREAT-MODEL
+    kind: file
+    line: 3
+    locations:
+      - file_path: docs/THREAT-MODEL.md
+        line: 3
+    token: 𓛭𔔷𓦓𓀬
+    updated_at: 2026-10-26T22:18:29.411102Z
