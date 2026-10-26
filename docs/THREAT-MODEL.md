@@ -1,5 +1,7 @@
 # Threat Model — k8/secret-utils
 
+<!-- 〚📁:fb6be9ad-c6a8-5557-9a00-8f1f125b529c〛 THREAT-MODEL :: Threat model — trust boundaries, T-001–T-014 register, mitigations -->
+
 ## Overview
 
 `secret-utils` is a **credential-moving** toolchain. Its crown jewels are the

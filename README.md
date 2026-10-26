@@ -1,5 +1,7 @@
 # secret-utils
 
+<!-- 〚📁:a593d832-d2a8-5cc8-8a6e-81c4ed460c5c〛 README :: Repo entry point — what the toolchain is, prereqs, tool table, getting started -->
+
 **Repo:** https://github.com/the-robot-lives/secrets-tools
 
 Environment file generation and Infisical secret seeding — the CLI fleet behind the Noizu secrets flow (`.envrc` → dc → Infisical → k8s).

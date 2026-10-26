@@ -1,3 +1,4 @@
+// 〚📁:e1fbb5c6-73ce-5fb6-9193-a6e5146749e0〛 api/mod.rs :: Infisical HTTP client — Universal Auth login, secrets raw v3, folder ensure v2, optional CF Access
 pub mod types;
 
 use anyhow::{Context, Result, bail};

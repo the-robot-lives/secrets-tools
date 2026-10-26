@@ -1,3 +1,4 @@
+// 〚📁:1bc3add2-1d3d-538c-875c-d5b64bd87d89〛 dc.rs :: dc bridge — `get --reveal --raw` read, redaction-sentinel refusal, `.envrc.dc` parse/locate
 use anyhow::{Context, Result};
 use regex::Regex;
 use std::path::{Path, PathBuf};
