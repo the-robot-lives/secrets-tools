@@ -31,20 +31,25 @@ secret-utils/
 │   ├── Cargo.lock
 │   └── src/                        #   main, cli, dc, error, api/, commands/,
 │                                   #   config/, engine/, tui/ (ratatui views)
-├── tests/
-│   └── test_populate_redaction.sh  # Redaction safety (shell + cargo unit hooks)
+├── tests/                          # Shell safety suites + cargo unit hooks
+│   ├── test_populate_redaction.sh  #   Redaction-sentinel refusal (populate)
+│   ├── test_populate_safety.sh     #   Scoping, read outcomes, merge keys, dry-run
+│   ├── test_github_schema.sh       #   `github:` block schema/allowlist refusals
+│   └── test_github_writer.sh       #   GitHub fan-out gates + value-leak scans
 ├── docs/
 │   ├── PROJ-ARCH.md(+.summary)     # Architecture + quick reference
 │   ├── PROJ-LAYOUT.md(+.summary)   # This file + tree-only companion
 │   ├── PROJ-HOWTO.md(+.summary)    # Task guides index + companion
 │   ├── PROJ-FAQ.md(+.summary)      # FAQ + companion
 │   ├── PROJ-SCHEMA.md(+.summary)   # Config/data artifacts (no DB) + companion
+│   ├── THREAT-MODEL.md(+.summary)  # Attack surface + vuln register + mitigations
 │   ├── arch/
 │   │   ├── data-flow.md            #   Secret data-flow diagrams
 │   │   └── secret-topology.md      #   Source/destination topology
 │   ├── howto/
 │   │   ├── populate-secrets.md     #   Populate walkthrough
-│   │   └── rebuild-from-infisical.md
+│   │   ├── rebuild-from-infisical.md
+│   │   └── sync-github-secrets.md  #   GitHub Actions secret fan-out (plan/apply)
 │   └── layout/
 │       ├── bin.md                  #   Full bin/ inventory
 │       └── rust.md                 #   Full rust/src/ inventory
@@ -78,8 +83,10 @@ Override: `INSTALL_DIR` / `LIB_DIR`. No `cargo` → Rust binary skipped; legacy 
   (`infisical.host` / `project_id`); root `.infisical-secrets.yaml`;
   `.envrc.k8.dc` credentials (`K8_INFISICAL_CLIENT_ID` / `_SECRET`).
 - **Prereqs**: `jq`, `curl`, `openssl`; `cargo` for primary binary + rust tests.
-- **Tests**: `make test` runs `tests/test_populate_redaction.sh` and selected
-  `cargo test` filters when cargo is available.
+- **Tests**: `make test` runs four shell suites (`test_populate_redaction.sh`,
+  `test_populate_safety.sh`, `test_github_schema.sh`, `test_github_writer.sh`)
+  and, when cargo is present, the `cargo test is_redaction_sentinel` and
+  `dc_get_requires_reveal` filters.
 
 ## Key Files Requiring Setup
 

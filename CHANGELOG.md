@@ -3,6 +3,7 @@
 ## 2026-10-26
 
 - docs: correct stale "main is CI/CD-only" deploy note — merging into main triggers CI/CD (user-verified 2026-10-26)
+- docs: doc-sweep — PROJ-LAYOUT synced to current inventory (4 test suites, sync-github-secrets.md, schema/threat-model digests); PROJ-ARCH documents the GitHub Actions fan-out; new THREAT-MODEL (+summary) with T-001–T-014 register (T-009 bootstrap argv exposure open)
 
 ## [Unreleased]
 GitHub Actions secret sync (repo + environment scopes, v1) plus safety fixes to existing flows.

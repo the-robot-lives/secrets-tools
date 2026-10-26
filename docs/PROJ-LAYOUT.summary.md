@@ -24,15 +24,20 @@ secret-utils/
 │   └── src/                          # main, cli, dc, error, api/, commands/,
 │                                     # config/, engine/, tui/
 ├── tests/
-│   └── test_populate_redaction.sh
+│   ├── test_populate_redaction.sh
+│   ├── test_populate_safety.sh
+│   ├── test_github_schema.sh
+│   └── test_github_writer.sh
 ├── docs/
 │   ├── PROJ-ARCH.md · PROJ-ARCH.summary.md
 │   ├── PROJ-LAYOUT.md · PROJ-LAYOUT.summary.md
 │   ├── PROJ-HOWTO.md · PROJ-HOWTO.summary.md
 │   ├── PROJ-FAQ.md · PROJ-FAQ.summary.md
 │   ├── PROJ-SCHEMA.md · PROJ-SCHEMA.summary.md
+│   ├── THREAT-MODEL.md · THREAT-MODEL.summary.md
 │   ├── arch/                         # data-flow.md, secret-topology.md
-│   ├── howto/                        # populate-secrets.md, rebuild-from-infisical.md
+│   ├── howto/                        # populate-secrets.md, rebuild-from-infisical.md,
+│   │                                 # sync-github-secrets.md
 │   └── layout/                       # bin.md, rust.md
 ├── CHANGELOG.md
 ├── merge-notes.md                  # Branch-sweep/merge journal

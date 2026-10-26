@@ -40,6 +40,7 @@ graph LR
     RES --> CLI
     CLI -->|Universal Auth + REST v1/v2/v3| INF[Infisical]
     CLI -->|kubectl generic secrets| K8S
+    CLI -->|plan/apply, values on stdin| GH[GitHub Actions secrets]
     INF -->|operator + InfisicalSecret CRDs| K8S[k8s Secrets]
     K8S --> PODS[Pods / Helm]
 ```
@@ -60,6 +61,8 @@ graph LR
 | `bin/*` (11) | Legacy CLIs; installed by `make install-legacy` always (with or without Rust) |
 | `lib/secret-engine.sh` | Shared Bash: auth, get/set/list, YAML parse, envrc.dc edit, resolve, verify → `~/.local/lib` |
 | `bin/hydrate-envrc` | Two-pass `.envrc.example` → `.envrc` (`generate:*`, `inherit:`, `REQUIRED`) |
+| `bin/infisical-populate-secrets` — GitHub leg | `github:` fan-out to GitHub Actions secrets (plan/apply, see below) |
+| `tests/` | Four shell safety suites (redaction, populate safety, github schema + writer) + cargo unit filters |
 | `Makefile` | `compile` / `test` / `install` / `install-legacy` / `clean` |
 
 ## Resolution Layering
@@ -145,6 +148,23 @@ so populate never writes placeholders into Infisical (`tests/test_populate_redac
 
 Detail notes: [arch/data-flow.md](arch/data-flow.md) (hydrate + shell populate).
 
+## GitHub Actions fan-out
+
+A `SecretSpec.github` block lets one resolved value also land in GitHub Actions
+secrets **in addition to** its Infisical upload (never instead of it). Implemented
+in the bash engine (`bin/infisical-populate-secrets`), it is deliberately
+write-shy: `--github-push` is always plan-only, and applying requires three
+independent gates — the `SECRET_UTILS_GITHUB_WRITES=1` env var, a typed/exact
+plan-sha confirmation (`--yes --github-plan-sha=<sha>` non-interactive), and an
+expected-logins identity assertion. Values travel via stdin only; targets are
+restricted to a tracked owner allowlist (a top-level `github_owners:` YAML key is
+refused, and `github:` supplied via an anchor/alias is refused). v1 supports
+repository and environment scopes; org and dependabot targets are parsed and
+rejected with a "deferred to v2" message.
+
+→ *See [howto/sync-github-secrets.md](howto/sync-github-secrets.md) and
+[THREAT-MODEL.md](THREAT-MODEL.md) for the gating rationale*
+
 ## Install & Ecosystem
 
 ```text
@@ -185,6 +205,7 @@ host typically come from monorepo `.envrc.k8.dc` / Infisical sections of
 - [arch/data-flow.md](arch/data-flow.md) — hydrate + populate steps
 - [arch/secret-topology.md](arch/secret-topology.md) — platform folder map / fan-out
 - [PROJ-SCHEMA.md](PROJ-SCHEMA.md) — config/data artifact schemas (no DB)
+- [THREAT-MODEL.md](THREAT-MODEL.md) — attack surface, vuln register, mitigations
 - [layout/rust.md](layout/rust.md), [layout/bin.md](layout/bin.md)
 - [PROJ-HOWTO.md](PROJ-HOWTO.md), [PROJ-FAQ.md](PROJ-FAQ.md)
 - Package [README.md](../README.md)

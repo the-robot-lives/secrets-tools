@@ -14,3 +14,9 @@ is override → dc → env → ref → template → file → fallback_dc → aut
 Populate ensures folders then create/patch/skips secrets; verify compares dc vs
 Infisical; bootstrap seeds Infisical’s own tier-0 k8s Secrets via kubectl.
 Downstream: InfisicalSecret CRDs + operator → k8s Secrets → Helm.
+
+`SecretSpec.github` additionally fans a resolved value out to GitHub Actions
+secrets (repo + environment scopes in v1; org/dependabot deferred) behind three
+gates — `SECRET_UTILS_GITHUB_WRITES=1`, a typed/exact plan-sha, and an identity
+assertion — with values sent via stdin and a tracked owner allowlist. Threat
+surface and mitigations: [THREAT-MODEL.md](THREAT-MODEL.md).
