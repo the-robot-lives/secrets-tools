@@ -1,5 +1,9 @@
 # Changelog — utilities/k8/secret-utils
 
+## 2026-10-26
+
+- docs: correct stale "main is CI/CD-only" deploy note — merging into main triggers CI/CD (user-verified 2026-10-26)
+
 ## [Unreleased]
 GitHub Actions secret sync (repo + environment scopes, v1) plus safety fixes to existing flows.
 
